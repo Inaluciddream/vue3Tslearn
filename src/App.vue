@@ -21,6 +21,18 @@ const testData: ColumnProps[] = [
     title: 'test2的专栏',
     description: '这是test2的专栏, 有一段非常有意思的简介, 可以更新一下',
     avatar: 'https://img1.doubanio.com/view/photo/l/public/p2633209449.webp'
+  },
+  {
+    id: 3,
+    title: 'test3的专栏',
+    description: '这是test1的专栏, 有一段非常有意思的简介, 可以更新一下'
+    // avatar: 'https://img9.doubanio.com/view/photo/l/public/p2633531206.webp'
+  },
+  {
+    id: 4,
+    title: 'test4的专栏',
+    description: '这是test2的专栏, 有一段非常有意思的简介, 可以更新一下',
+    avatar: 'https://img1.doubanio.com/view/photo/l/public/p2633209449.webp'
   }
 ]
 export default defineComponent({
