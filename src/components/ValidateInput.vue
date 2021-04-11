@@ -1,5 +1,5 @@
 <template>
-    <div class="validate-input-container pb-3">
+    <div class="validate-input-container pb-3 col-sm-10">
         <input
             class="form-control"
             :value="inputRef.val"
@@ -13,7 +13,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, PropType } from 'vue'
+import { defineComponent, reactive, PropType, onMounted } from 'vue'
+import { emitter } from './ValidateForm.vue'
 const emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 interface RuleProp {
     type: 'required' | 'email';
@@ -56,13 +57,18 @@ export default defineComponent({
                     return passed
                 })
                 inputRef.error = !allPassed
+                return allPassed
             }
+            return true
         }
-            return {
-                inputRef,
-                validateInput,
-                updateValue
-            }
+        onMounted(() => {
+            emitter.emit('form-item-created', validateInput)
+        })
+        return {
+            inputRef,
+            validateInput,
+            updateValue
+        }
     }
 })
 </script>

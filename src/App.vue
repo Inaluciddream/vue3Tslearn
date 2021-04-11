@@ -2,17 +2,19 @@
   <div class="container">
     <global-header :user="currentUser"></global-header>
     <cloumn-list :list="list"></cloumn-list>
-    <form>
-      <div class="mb-3">
-        <label class="form-label">邮箱地址</label>
+    <validate-form @form-submit="onFormSubmit">
+      <div class="mb-3 row">
+        <label class="form-label col-sm-2">邮箱地址</label>
         <validate-input :rules="emailRules" v-model="emailVal" placeholder="请输入邮箱地址" type="text"></validate-input>
       </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <validate-input :rules="passwordRules" v-model="password" type="password" placeholder="请输入密码"></validate-input>
+      <div class="mb-3 row">
+        <label for="exampleInputPassword1" class="form-label col-sm-2">Password</label>
+        <validate-input ref="inputRef" :rules="passwordRules" v-model="password" type="password" placeholder="请输入密码"></validate-input>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+      <template #submit>
+        <button class="btn btn-primary" @click="buttonClick">Submit</button>
+      </template>
+    </validate-form>
   </div>
 </template>
 
@@ -23,6 +25,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import CloumnList, { ColumnProps } from './components/ColumnList.vue'
 import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
 import ValidateInput, { RulesProp } from './components/ValidateInput.vue'
+import ValidateForm from './components/ValidateForm.vue'
 const currentUser: UserProps = {
   isLogin: true,
   name: 'viking',
@@ -61,9 +64,11 @@ export default defineComponent({
   components: {
     CloumnList,
     GlobalHeader,
-    ValidateInput
+    ValidateInput,
+    ValidateForm
   },
   setup () {
+    const inputRef = ref<any>('')
     const emailRef = reactive({
       val: '',
       error: false,
@@ -87,6 +92,12 @@ export default defineComponent({
         emailRef.message = 'should be valid email'
       }
     }
+    const onFormSubmit = (result: boolean) => {
+      console.log(result)
+    }
+    const buttonClick = () => {
+      console.log('buttonclick')
+    }
     return {
       list: testData,
       currentUser,
@@ -95,7 +106,10 @@ export default defineComponent({
       emailRules,
       emailVal,
       passwordRules,
-      password
+      password,
+      onFormSubmit,
+      inputRef,
+      buttonClick
     }
   }
 })
