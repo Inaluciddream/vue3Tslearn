@@ -25,6 +25,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
+    li {
+        cursor: pointer;
+    }
     li.dropdown-option.is-disabled {
         color: #6b6b6b;
         background-color: transparent;
